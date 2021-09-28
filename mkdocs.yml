@@ -1,0 +1,36 @@
+site_name: dripostal
+site_description: Client for Pelias Libpostal Service
+strict: true
+
+theme:
+  name: material
+  custom_dir: docs/theme
+  language: en
+  favicon: img/dribia-favicon-120x120.png
+  logo: img/logo_dribia_d_blanc.png
+repo_name: dribia_team/dripostal
+repo_url: https://github.com/dribia/dripostal
+edit_uri: ''
+nav:
+  - dripostal: index.md
+  - Install: install.md
+  - Usage:
+    - usage/intro.md
+    - usage/parse.md
+    - usage/expand.md
+    - usage/async.md
+  - Contribute: contribute.md
+extra_css:
+- stylesheets/extra.css
+
+markdown_extensions:
+- markdown.extensions.codehilite:
+    guess_lang: false
+- toc:
+    permalink: 🔗
+- codehilite
+- admonition
+- pymdownx.details
+- pymdownx.superfences
+- pymdownx.tabbed
+

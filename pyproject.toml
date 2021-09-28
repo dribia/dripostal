@@ -1,0 +1,54 @@
+[tool.poetry]
+name = "dripostal"
+version = "0.1.0"
+description = "A tiny API client for the Pelias Libpostal REST service."
+license = "MIT"
+authors = ["Dribia Data Research <opensource@dribia.com>"]
+maintainers = [
+    "Nabil Kakeh <nabil@dribia.com>",
+    "Albert Iribarne <iribarne@dribia.com>",
+]
+readme = "README.md"
+homepage = "https://dribia.github.io/dripostal"
+repository = "https://github.com/dribia/dripostal"
+documentation = "https://dribia.github.io/dripostal"
+
+[tool.poetry.dependencies]
+python = ">=3.6.2,<4.0"
+importlib-metadata = {version = ">=1.0, <5.0", python = "<3.8"}
+pydantic = "^1.8.2"
+aiohttp = {version = "^3.7.4", optional = true}
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.1.2"
+pytest-cov = "^2.10.1"
+toml = "^0.10.2"
+coverage-badge = "^1.0.1"
+pytest-mock = "^3.5.1"
+pre-commit = "^2.13.0"
+mypy = "0.910"
+isort = "5.9.3"
+flake8 = "3.9.2"
+pydocstyle = "6.1.1"
+black = "^21.9b0"
+mkdocs = "^1.2.2"
+mkdocs-material = "^7.3.0"
+
+[tool.poetry.extras]
+aiohttp = ["aiohttp"]
+
+[tool.pydocstyle]
+convention = "google"
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 88
+ensure_newline_before_comments = true
+known_third_party = ""
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
