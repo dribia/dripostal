@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dripostal"
-version = "0.1.0"
+version = "0.1.1"
 description = "A tiny API client for the Pelias Libpostal REST service."
 license = "MIT"
 authors = ["Dribia Data Research <opensource@dribia.com>"]
