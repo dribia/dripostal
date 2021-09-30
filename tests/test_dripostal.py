@@ -67,7 +67,6 @@ def test_parse(mocker: MockerFixture, scheme, host):
         host: Parametrized host.
 
     """
-    host = utils.random_lower_string()
     url = f"{scheme}://{host}"
     fake_parse_response = [
         {"label": label, "value": utils.random_lower_string()}
@@ -89,7 +88,7 @@ def test_parse(mocker: MockerFixture, scheme, host):
     arg_1, *args = magic_mocker.call_args[0]
     assert isinstance(arg_1, AnyHttpUrl)
     assert arg_1.scheme == scheme
-    assert arg_1.host == host
+    assert arg_1.host == host.rstrip("/")
     assert arg_1.path == "/parse"
     assert parse.parse_qs(arg_1.query) == {"address": [input_address]}
 
@@ -111,7 +110,6 @@ def test_expand(mocker: MockerFixture, host, scheme):
         host: Parametrized host.
 
     """
-    host = utils.random_lower_string()
     url = f"{scheme}://{host}"
     fake_expand_response = [utils.random_lower_string()]
     magic_mocker = mocker.patch(
@@ -129,6 +127,6 @@ def test_expand(mocker: MockerFixture, host, scheme):
     arg_1, *args = magic_mocker.call_args[0]
     assert isinstance(arg_1, AnyHttpUrl)
     assert arg_1.scheme == scheme
-    assert arg_1.host == host
+    assert arg_1.host == host.rstrip("/")
     assert arg_1.path == "/expand"
     assert parse.parse_qs(arg_1.query) == {"address": [input_address]}
