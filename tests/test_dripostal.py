@@ -6,6 +6,7 @@ Dribia 2021/01/11, Albert Iribarne <iribarne@dribia.com>
 import json
 import re
 from io import StringIO
+from typing import Optional
 from urllib import parse
 
 import pytest
@@ -55,7 +56,10 @@ def test_base_url(host, scheme):
     [utils.random_lower_string(), f"{utils.random_lower_string()}/"],
 )
 @pytest.mark.parametrize("scheme", ["https", "http"])
-def test_parse(mocker: MockerFixture, scheme, host):
+@pytest.mark.parametrize("method_name", [None, utils.random_lower_string()])
+def test_parse(
+    mocker: MockerFixture, scheme: str, host: str, method_name: Optional[str]
+):
     """Test the parse method.
 
     Here we need to mock the `urllib.request.urlopen` method, since
@@ -65,6 +69,7 @@ def test_parse(mocker: MockerFixture, scheme, host):
         mocker: Pytest mocker.
         scheme: Parametrized scheme.
         host: Parametrized host.
+        method_name: API method name.
 
     """
     url = f"{scheme}://{host}"
@@ -78,7 +83,11 @@ def test_parse(mocker: MockerFixture, scheme, host):
     )
 
     # Let's assert that the response is correctly parsed.
-    dri_postal = DriPostal(url)
+    if method_name is None:
+        dri_postal = DriPostal(url)
+        method_name = "parse"
+    else:
+        dri_postal = DriPostal(url, parse_method=method_name)
     input_address = "Carrer de la Llacuna, 162, 08018 Barcelona"
     address = dri_postal.parse(input_address)
     for el in fake_parse_response:
@@ -89,7 +98,7 @@ def test_parse(mocker: MockerFixture, scheme, host):
     assert isinstance(arg_1, AnyHttpUrl)
     assert arg_1.scheme == scheme
     assert arg_1.host == host.rstrip("/")
-    assert arg_1.path == "/parse"
+    assert arg_1.path == f"/{method_name}"
     assert parse.parse_qs(arg_1.query) == {"address": [input_address]}
 
 
@@ -98,7 +107,8 @@ def test_parse(mocker: MockerFixture, scheme, host):
     [utils.random_lower_string(), f"{utils.random_lower_string()}/"],
 )
 @pytest.mark.parametrize("scheme", ["https", "http"])
-def test_expand(mocker: MockerFixture, host, scheme):
+@pytest.mark.parametrize("method_name", [None, utils.random_lower_string()])
+def test_expand(mocker: MockerFixture, host, scheme, method_name):
     """Test the expand method.
 
     Here we need to mock the `urllib.request.urlopen` method, since
@@ -108,6 +118,7 @@ def test_expand(mocker: MockerFixture, host, scheme):
         mocker: Pytest mocker.
         scheme: Parametrized scheme.
         host: Parametrized host.
+        method_name: Name of the API method.
 
     """
     url = f"{scheme}://{host}"
@@ -118,7 +129,12 @@ def test_expand(mocker: MockerFixture, host, scheme):
     )
 
     # Let's assert that the response is correctly parsed.
-    dri_postal = DriPostal(url)
+    # Let's assert that the response is correctly parsed.
+    if method_name is None:
+        dri_postal = DriPostal(url)
+        method_name = "expand"
+    else:
+        dri_postal = DriPostal(url, expand_method=method_name)
     input_address = "Carrer de la Llacuna, 162, 08018 Barcelona"
     results = dri_postal.expand(input_address)
     assert fake_expand_response == results
@@ -128,5 +144,5 @@ def test_expand(mocker: MockerFixture, host, scheme):
     assert isinstance(arg_1, AnyHttpUrl)
     assert arg_1.scheme == scheme
     assert arg_1.host == host.rstrip("/")
-    assert arg_1.path == "/expand"
+    assert arg_1.path == f"/{method_name}"
     assert parse.parse_qs(arg_1.query) == {"address": [input_address]}
