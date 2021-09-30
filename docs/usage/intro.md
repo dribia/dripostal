@@ -49,3 +49,29 @@ and [**`expand`**](expand.md) endpoints.
 
 !!!info
     There is also a mirror [asynchronous client](async.md) providing the same interface in the `dripostal.aio` module.
+
+### API Method Names
+In case your Libpostal REST service has a different API layout,
+DriPostal allows you to modify the names of the target API methods, for both `parse` and `expand`.
+To do so, you should specify them when initializing the class:
+```python
+from dripostal import DriPostal
+
+dripostal = DriPostal(
+    url="http://0.0.0.0:4400", 
+    parse_method="parser", 
+    expand_method="expander",
+)
+```
+In the example above, DriPostal's `parse` method will be querying `http://0.0.0.0:4400/parser` 
+instead of `http://0.0.0.0:4400/parse`, and its `expand` method will be querying 
+`http://0.0.0.0:4400/expander`. 
+
+!!!warning
+    DriPostal is designed to interact with GET-based Libpostal REST APIs. Its URL template is:
+    ```
+    <schema>://<domain>/<method>?q=<query>
+    ```
+
+    If you are trying to query a POST-based Libpostal REST service like 
+    [`libpostal-rest-docker`](https://github.com/johnlonganecker/libpostal-rest-docker) DriPostal is not your tool 😔
