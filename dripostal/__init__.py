@@ -24,14 +24,20 @@ __version__ = version(__name__)
 class DriPostal:
     """Wrapper for binding pelias/libpostal service."""
 
-    def __init__(self, url: str):
+    def __init__(
+        self, url: str, parse_method: str = "parse", expand_method: str = "expand"
+    ):
         """Dripostal configuration.
 
         Args:
             url: URL of the Libpostal service.
+            parse_method: Parse method name in the API.
+            expand_method: Expand method name in the API.
 
         """
         self.service_url: AnyHttpUrl = self._parse_url(url)
+        self._parse_method: str = parse_method
+        self._expand_method: str = expand_method
 
     @staticmethod
     def _parse_url(url: str):
@@ -67,7 +73,7 @@ class DriPostal:
         Returns: Parsed address.
 
         """
-        request_url = self._get_url(method="parse", address=address)
+        request_url = self._get_url(method=self._parse_method, address=address)
         response = request.urlopen(request_url)
         payload = json.loads(response.read())
         return Address(**{el["label"]: el["value"] for el in payload})
@@ -81,7 +87,7 @@ class DriPostal:
         Returns: Expanded address.
 
         """
-        request_url = self._get_url(method="expand", address=address)
+        request_url = self._get_url(method=self._expand_method, address=address)
         response = request.urlopen(request_url)
         payload = json.loads(response.read())
         return payload
