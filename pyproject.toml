@@ -21,7 +21,7 @@ aiohttp = {version = "^3.7.4", optional = true}
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.1.2"
-pytest-cov = "^2.10.1"
+pytest-cov = "^4.0.0"
 toml = "^0.10.2"
 coverage-badge = "^1.0.1"
 pytest-mock = "^3.5.1"
