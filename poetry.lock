@@ -447,14 +447,17 @@ toml = ["toml"]
 
 [[package]]
 name = "coverage-badge"
-version = "1.0.1"
+version = "1.1.0"
 description = "Generate coverage badges for Coverage.py."
 optional = false
 python-versions = "*"
 files = [
-    {file = "coverage-badge-1.0.1.tar.gz", hash = "sha256:142fd121f3bd14956aff3c45bff6f8bc37bd74c6350626a950ebb6accb24276e"},
-    {file = "coverage_badge-1.0.1-py2.py3-none-any.whl", hash = "sha256:3796de21b4e190d38beb8806956946fbdb02fe3a2a7452b460a9cff958009833"},
+    {file = "coverage-badge-1.1.0.tar.gz", hash = "sha256:c824a106503e981c02821e7d32f008fb3984b2338aa8c3800ec9357e33345b78"},
+    {file = "coverage_badge-1.1.0-py2.py3-none-any.whl", hash = "sha256:e365d56e5202e923d1b237f82defd628a02d1d645a147f867ac85c58c81d7997"},
 ]
+
+[package.dependencies]
+coverage = "*"
 
 [[package]]
 name = "dataclasses"
@@ -1582,4 +1585,4 @@ aiohttp = ["aiohttp"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.6.2,<4.0"
-content-hash = "5ad00b34506d9e92dae35a7b0e6dc182072d0cf71d60d81c82ab0f3a087c4860"
+content-hash = "9babe5e0db9f2c41bc3afa34f92016060e573d24f21d3d9fd7729ba1774328dd"

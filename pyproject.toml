@@ -23,7 +23,7 @@ aiohttp = {version = "^3.7.4", optional = true}
 pytest = "^7.0.1"
 pytest-cov = "^4.0.0"
 toml = "^0.10.2"
-coverage-badge = "^1.0.1"
+coverage-badge = "^1.1.0"
 pytest-mock = "^3.5.1"
 pre-commit = "^2.13.0"
 mypy = "0.971"
